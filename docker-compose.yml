@@ -1,0 +1,21 @@
+services:
+  extractor:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    image: pdf-extractor:2.0.0
+    container_name: pdf-extractor
+    restart: always
+    environment:
+      # required: refuses to start without it, so the public endpoint is never open
+      EXTRACTOR_TOKEN: ${EXTRACTOR_TOKEN:?set EXTRACTOR_TOKEN in .env}
+      MAX_BYTES: ${MAX_BYTES:-41943040}
+      # do NOT set PORT: the image HEALTHCHECK is hardcoded to 127.0.0.1:8765
+    ports:
+      # loopback only -- the reverse proxy is the only thing that may reach it
+      - "127.0.0.1:8765:8765"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

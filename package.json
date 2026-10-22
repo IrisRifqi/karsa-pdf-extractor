@@ -1,0 +1,17 @@
+{
+  "name": "karsa-pdf-extractor",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Coordinate-aware plankton-table extractor (HTTP) for the Karsa microbiology/plankton ingest.",
+  "main": "pdf_server.js",
+  "scripts": {
+    "start": "node pdf_server.js",
+    "extract": "node pdf_table.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pdfjs-dist": "4.10.38"
+  }
+}
